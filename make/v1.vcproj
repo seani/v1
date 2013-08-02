@@ -177,6 +177,50 @@
 			<File
 				RelativePath="..\src\main.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+						PrecompiledHeaderThrough="pch.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+						PrecompiledHeaderThrough="pch.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\pch.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="pch.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="pch.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\pch.h"
+				>
 			</File>
 			<Filter
 				Name="common"
@@ -228,6 +272,40 @@
 							>
 						</File>
 					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="render"
+				>
+				<File
+					RelativePath="..\src\render\RenderThread.h"
+					>
+				</File>
+				<Filter
+					Name="src"
+					>
+					<File
+						RelativePath="..\src\render\src\RenderThread.cpp"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="2"
+								PrecompiledHeaderThrough="pch.h"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="2"
+								PrecompiledHeaderThrough="pch.h"
+							/>
+						</FileConfiguration>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>
