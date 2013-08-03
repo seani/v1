@@ -29,7 +29,7 @@ int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCm
     window.setActive(false);
 
     //create render thread and start it.
-    sf::Thread thread(&renderingThread, &window);
+    sf::Thread thread(RenderingThread, &window);
     thread.launch();
 
     //keep going forever while we have a window.

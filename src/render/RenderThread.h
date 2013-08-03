@@ -23,5 +23,5 @@ namespace sf
     class RenderWindow;
 }
 
-void renderingThread(sf::RenderWindow* window);
+void RenderingThread(sf::RenderWindow* window);
 

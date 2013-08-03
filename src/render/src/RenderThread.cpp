@@ -20,7 +20,7 @@
 #include <SFML/Graphics.hpp>
 #include "render/RenderThread.h"
 
-void renderingThread(sf::RenderWindow* window)
+void RenderingThread(sf::RenderWindow* window)
 {
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
