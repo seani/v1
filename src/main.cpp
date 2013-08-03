@@ -17,9 +17,9 @@
 //
 
 #include "pch.h"
-#include "common/global/global.h"
-#include <SFML/Graphics.hpp>
-#include "render/RenderThread.h"
+#include "common\global\global.h"
+#include <SFML\Graphics.hpp>
+#include "render\RenderThread.h"
 
 int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd)
 {

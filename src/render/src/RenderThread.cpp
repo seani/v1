@@ -17,8 +17,8 @@
 //
 
 #include "pch.h"
-#include <SFML/Graphics.hpp>
-#include "render/RenderThread.h"
+#include <SFML\Graphics.hpp>
+#include "render\RenderThread.h"
 
 void RenderingThread(sf::RenderWindow* window)
 {
