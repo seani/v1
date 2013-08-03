@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <windows.h>
 #include "common\global\global.h"
 #include <SFML\Graphics.hpp>
 

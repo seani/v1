@@ -225,6 +225,14 @@
 			<Filter
 				Name="common"
 				>
+				<File
+					RelativePath="..\src\common\random.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\common\random.h"
+					>
+				</File>
 				<Filter
 					Name="global"
 					>
@@ -273,6 +281,30 @@
 						</File>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="idb"
+					>
+					<File
+						RelativePath="..\src\common\idb\IBase.h"
+						>
+					</File>
+					<File
+						RelativePath="..\src\common\idb\InterfaceDatabase.h"
+						>
+					</File>
+					<Filter
+						Name="src"
+						>
+						<File
+							RelativePath="..\src\common\idb\src\InterfaceDatabase.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\common\idb\src\InterfaceDatabaseImpl.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="render"
@@ -305,6 +337,60 @@
 								PrecompiledHeaderThrough="pch.h"
 							/>
 						</FileConfiguration>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="sim"
+				>
+				<File
+					RelativePath="..\src\sim\IFrameRate.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\sim\IScreenText.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\sim\ITime.h"
+					>
+				</File>
+				<Filter
+					Name="src"
+					>
+					<File
+						RelativePath="..\src\sim\src\FrameRateImpl.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\src\sim\src\ScreenTextImpl.cpp"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="2"
+								PrecompiledHeaderThrough="pch.h"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="2"
+								PrecompiledHeaderThrough="pch.h"
+							/>
+						</FileConfiguration>
+					</File>
+				</Filter>
+				<Filter
+					Name="win32"
+					>
+					<File
+						RelativePath="..\src\sim\win32\TimeImpl.cpp"
+						>
 					</File>
 				</Filter>
 			</Filter>

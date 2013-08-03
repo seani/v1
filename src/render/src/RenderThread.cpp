@@ -20,9 +20,28 @@
 #include <SFML\Graphics.hpp>
 #include "render\RenderThread.h"
 
+//text drawing interface
+#include "sim\IScreenText.h"
+static IScreenText *screenText;
+InterfaceReference(screenText, IScreenText, default);
+
+//time interface
+#include "sim\ITime.h"
+static ITime *timer;
+InterfaceReference(timer, ITime, default);
+
+//frame rate tracking interface
+#include "sim\IFrameRate.h"
+static IFrameRate *frameRate;
+InterfaceReference(frameRate, IFrameRate, default);
+
+
 void RenderingThread(sf::RenderWindow* window)
 {
     CONTEXT_ROOT();
+
+    //initialize screen text module
+    screenText->Startup(context);
 
     //load a texture.
     sf::Texture grassTexture;
@@ -35,9 +54,21 @@ void RenderingThread(sf::RenderWindow* window)
     sf::Sprite sprite;
     sprite.setTexture(grassTexture);
 
+    //initialize time module
+    timer->Startup(context);
+
     // the rendering loop
     while (window->isOpen())
     {
+        //register the start of this frame.
+        timer->UpdateTime();
+
+        //time spent doing last frame.
+        float frameTime = timer->FrameTime();
+
+        //do computation for our frame rate.
+        frameRate->FrameStatistics(frameTime, context);
+
         //clear screen.
         //window->clear();
 
@@ -59,7 +90,10 @@ void RenderingThread(sf::RenderWindow* window)
             }
         }
 
+        //render text overlays
+        screenText->RenderText(window, context);
+
         //show the stuff we drew to the window.
-        window->display();
+        if (window->isOpen() == true) window->display();
     }
 }
