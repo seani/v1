@@ -123,6 +123,7 @@ typedef wchar_t wchar;
 #define IFBREAKCONTINUE(exp) if (exp) {BREAK1(); continue;}
 #define IFBREAKBREAK(exp) if (exp) {BREAK1(); break;}
 #define IFBREAKCONTEXT(exp) if (exp) {BREAK1(); context.CrashMessage(#exp); return false;}
+#define IFBREAKCONTEXTRETURN(exp) if (exp) {BREAK1(); context.CrashMessage(#exp); return;}
 #define IFBREAKCONTEXTMSG(exp, message) if (exp) {BREAK1(); context.CrashMessage(message); return false;}
 
 //same as BREAK, but called ASSERT

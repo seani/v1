@@ -22,17 +22,44 @@
 
 void RenderingThread(sf::RenderWindow* window)
 {
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    CONTEXT_ROOT();
+
+    //load a texture.
+    sf::Texture grassTexture;
+    IFBREAKCONTEXTRETURN(grassTexture.loadFromFile("art/textures/grass.png") == false);
+
+    //dimensions of grass texture
+    sf::Vector2u grassSize = grassTexture.getSize();
+
+    //make a sprite with our texture.
+    sf::Sprite sprite;
+    sprite.setTexture(grassTexture);
 
     // the rendering loop
     while (window->isOpen())
     {
-        // draw...
-        window->clear();
-        window->draw(shape);
+        //clear screen.
+        //window->clear();
 
-        // end the current frame
+        //now many rows and columns of sprites to fill our screen.
+        int numRows = numRows = (window->getSize().y + grassSize.y - 1) / grassSize.y;
+        int numColumns = (window->getSize().x + grassSize.x - 1) / grassSize.x;
+
+        //fill screen with grass, one row at a time.
+        for (int row = 0; row < numRows; row++)
+        {
+            //go across each row.
+            for (int column = 0; column < numColumns; column++)
+            {
+                //move sprite to this position
+                sprite.setPosition(float(column * grassSize.x), float(row * grassSize.y));
+
+                //draw the grass
+                window->draw(sprite);
+            }
+        }
+
+        //show the stuff we drew to the window.
         window->display();
     }
 }
