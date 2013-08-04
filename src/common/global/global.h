@@ -230,6 +230,8 @@ typedef wchar_t wchar;
     #define WINAPI __stdcall
     #define HINSTANCE uint32
     #define LPWSTR wchar *
+    #define max(a,b)            (((a) > (b)) ? (a) : (b))
+    #define min(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
 //everyone uses the context code, or at least they should
