@@ -16,7 +16,7 @@
 //  along with this program.  If not, see [http://www.gnu.org/licenses/].
 //
 
-//We include this file multiple times in order to create different map types.
+//We include this file multiple times in order to create different buffer types.
 //
 //  Basic options set with #define:
 //  - StringBufferImpl_ClassName
