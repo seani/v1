@@ -26,8 +26,8 @@
 //      Changes destructor, Empty, Reset to O(n)
 //  - ArrayPointerImpl_Queue
 //      Present if we want our implementation to preseve the order of items when items are removed.
-//      Adds the Insert() function to add an item at a specific index.
 //      Changes Remove to be O(n)
+//      Adds O(1) Pop to remove the oldest item.
 //  - ArrayPointerImpl_Sorted
 //      Adds functions to support O(log(n)) searching for items.
 //      Implies ArrayPointerImpl_Queue
@@ -36,10 +36,6 @@
 //while creating classes which are easy to look at inside the debugger.  If a class heirarchy was used instead, data members
 //are buried at the base of the class tree and possibly multiple base classes must be opened in order to view them.
 //
-
-#if defined(ArrayPointerImpl_Sorted)
-#define ArrayPointerImpl_Queue
-#endif
 
 
 template <class C>
@@ -78,11 +74,6 @@ public:
     //get all of our elements
     C const *const *Array() const;
 
-    #ifndef ArrayPointerImpl_Queue
-    //swap a new item for an existing item
-    C *Substitute(int32 index, C *item);
-    #endif
-
     //remove all our items and add all items from the given array, removing them from it
     void TakeFrom(ArrayPointerImpl_ClassName &other);
 
@@ -94,6 +85,7 @@ public:
     #if defined(ArrayPointerImpl_Sorted)
     void Add(C *item, CompareFunc compareFunc);
 private:
+    bool Insert(C *item, int32 index);
     #endif
     void Add(C *item);
 
@@ -123,19 +115,8 @@ public:
     #endif
 
     //
-    //Insert an item at a specific place.
-    //
-    #if defined(ArrayPointerImpl_Queue)
-    #if defined(ArrayPointerImpl_Sorted)
-private:
-    #endif
-    bool Insert(C *item, int32 index);
-    #endif
-
-    //
     //Functions to clear the array.
     //
-public:
     //remove all elements from our array and freeing storage space.
     void Reset();
 
@@ -148,6 +129,14 @@ private:
 
     //the length of the pointer array.
     int32 max;
+
+    #if defined(ArrayPointerImpl_Queue)
+    //start index of first, second, and third blocks
+    int32 start[3];
+
+    //number of items in first, second, and third blocks
+    int32 count[3];
+    #endif
 
     #ifdef __CONFIG_DEBUG
     //In DEBUG, we use this to easier look at the
@@ -215,24 +204,6 @@ C const *const *ArrayPointerImpl_ClassName<C>::Array() const
 {
     return items;
 }
-
-#ifndef ArrayPointerImpl_Queue
-template <class C>
-C *ArrayPointerImpl_ClassName<C>::Substitute(int32 index, C *item)
-{
-    IFBREAKNULL(index < 0 || index >= num);
-    IFBREAKNULL(item == null);
-
-    //get old item
-    C *old = items[index];
-
-    //put in new item.
-    items[index] = item;
-
-    //return old item
-    return old;
-}
-#endif
 
 template <class C>
 void ArrayPointerImpl_ClassName<C>::TakeFrom(ArrayPointerImpl_ClassName &other)
@@ -383,38 +354,6 @@ bool ArrayPointerImpl_ClassName<C>::Lengthen()
     return true;
 }
 
-#ifdef ArrayPointerImpl_Queue
-template <class C>
-bool ArrayPointerImpl_ClassName<C>::Insert(C *item, int32 index)
-{
-    IFASSERTFALSE(item == NULL);
-    IFASSERTFALSE(index < 0 || index > num);
-
-    //add the element at the end, which extends the array if necessary
-    Add(item);
-
-    //check if we were inserting at the end
-    if (index == num - 1)
-    {
-        //its already in the exact spot we want it
-        return true;
-    }
-
-    //move all items down one spot up to and including the given index
-    for (int32 i = num - 2; i >= index; i--)
-    {
-        //move this item down
-        items[i + 1] = items[i];
-    }
-
-    //put the item at the spot we want
-    items[index] = item;
-
-    //success
-    return true;
-}
-#endif
-
 #if defined(ArrayPointerImpl_Sorted)
 template <class C>
 void ArrayPointerImpl_ClassName<C>::Add(C *item, CompareFunc compareFunc)
@@ -493,6 +432,37 @@ void ArrayPointerImpl_ClassName<C>::Add(C *item, CompareFunc compareFunc)
     //item goes between low and high index, insert at high to move it down
     Insert(item, high);
 }
+
+template <class C>
+bool ArrayPointerImpl_ClassName<C>::Insert(C *item, int32 index)
+{
+    IFASSERTFALSE(item == NULL);
+    IFASSERTFALSE(index < 0 || index > num);
+
+    //add the element at the end, which extends the array if necessary
+    Add(item);
+
+    //check if we were inserting at the end
+    if (index == num - 1)
+    {
+        //its already in the exact spot we want it
+        return true;
+    }
+
+    //move all items down one spot up to and including the given index
+    for (int32 i = num - 2; i >= index; i--)
+    {
+        //move this item down
+        items[i + 1] = items[i];
+    }
+
+    //put the item at the spot we want
+    items[index] = item;
+
+    //success
+    return true;
+}
+
 
 template <class C> template <class ID>
 C *ArrayPointerImpl_ClassName<C>::Find(ID const id, typename FindFunc<ID>::Func findFunc)
